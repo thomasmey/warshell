@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8" />
+ <script src="https://cdn.jsdelivr.net/npm/xterm@4.2.0-vscode1/lib/xterm.min.js"></script>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.2.0-vscode1/css/xterm.css"/>
+ <title>WarShell</title>
+</head>
+<body>
+	<!-- https://stackoverflow.com/questions/44447473/how-to-make-xterm-js-accept-input -->
+	<div id="xterm-container"></div>
+	<script type="text/javascript">
+		var socket = new WebSocket('ws://localhost:8080/warshell/ws');
+		const term = new Terminal();
+		term.open(document.getElementById('xterm-container'));
+
+		socket.onmessage = function(event) {
+			event.data.arrayBuffer().then(buffer => term.write(new Uint8Array(buffer)));
+		};
+		term.onData((data) => {
+			socket.send(data);
+		});
+	</script>
+</body>
+</html>
