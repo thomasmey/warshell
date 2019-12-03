@@ -14,7 +14,21 @@
       <artifactId>javax.websocket-api</artifactId>
       <version>1.1</version>
     </dependency>
+    <dependency>
+      <groupId>org.jetbrains.pty4j</groupId>
+      <artifactId>pty4j</artifactId>
+      <version>0.8.6</version>
+    </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>bintray-jetbrains-pty4j</id>
+      <name>bintray</name>
+      <url>https://jetbrains.bintray.com/pty4j</url>
+    </repository>
+  </repositories>
+
   <build>
     <finalName>warshell</finalName>
     <plugins>

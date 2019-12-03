@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +8,10 @@
  <title>WarShell</title>
 </head>
 <body>
-	<!-- https://stackoverflow.com/questions/44447473/how-to-make-xterm-js-accept-input -->
+	<%-- https://stackoverflow.com/questions/44447473/how-to-make-xterm-js-accept-input --%>
 	<div id="xterm-container"></div>
 	<script type="text/javascript">
-		var socket = new WebSocket('ws://localhost:8080/warshell/ws');
+		var socket = new WebSocket('ws://${pageContext.request.serverName}:${pageContext.request.serverPort}/warshell/ws');
 		const term = new Terminal();
 		term.open(document.getElementById('xterm-container'));
 
