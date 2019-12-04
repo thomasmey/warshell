@@ -89,8 +89,14 @@ public class WarShell {
 		log.log(Level.INFO, "Closing session {0} - closeReason {1}", new Object[] {session, closeReason});
 		PtyProcess p = processes.remove(session);
 		if(p != null) {
+			if(!p.isAlive()) {
+				log.log(Level.INFO, "process did exit with {0}", p.exitValue());
+			} else {
+				log.log(Level.INFO, "process still alive {0}", p);
+			}
 			p.getInputStream().close();
 			p.getOutputStream().close();
+			p.getErrorStream().close();
 			p.destroy();
 		}
 

@@ -12,13 +12,14 @@
 	<div id="xterm-container"></div>
 	<script type="text/javascript">
 		var socket = new WebSocket('ws://${pageContext.request.serverName}:${pageContext.request.serverPort}/warshell/ws');
+		socket.binaryType = "arraybuffer";
 		const term = new Terminal();
 		term.open(document.getElementById('xterm-container'));
 
 		socket.onmessage = function(event) {
-			event.data.arrayBuffer().then(buffer => term.write(new Uint8Array(buffer)));
+			term.write(new Uint8Array(event.data));
 		};
-		term.onData((data) => {
+		term.onData(function(data) {
 			socket.send(data);
 		});
 	</script>
